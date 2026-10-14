@@ -111,7 +111,9 @@ function markVisited() {
 }
 
 function checkGameOver() {
-  if (gameOverNumber && gameOverPage && getNumber(gameOverNumber) <= 0) {
+  if (!gameOverNumber || !gameOverPage) return;
+  if (load("num_" + gameOverNumber) === null) return;   // not started yet
+  if (getNumber(gameOverNumber) <= 0) {
     window.location.href = gameOverPage;
   }
 }
@@ -167,7 +169,20 @@ function refresh() {
 }
 
 window.onload = function () {
-  markVisited();
   refresh();
+  markVisited();
   checkGameOver();
 };
+
+
+// Full list of what students can use:
+
+// Items - pick up, drop, check for
+// Numbers - HP, score, money, time, steps, anything that counts up or down
+// Status - text states that stack, like “the power is off” and “your hands are shaking”
+// Visited pages - content that only appears after they have been somewhere
+// Image swaps - a room shows lit instead of dark once they have the flashlight
+// Minimum thresholds - content that only shows if a number is high enough
+// Back and reset - return to previous page, or wipe everything and restart
+// Auto game over - optional, redirect when a number hits zero
+// remember reference w3schools if you become stuck on trying to reference more than one thing at once, do not overcomplicate your work
